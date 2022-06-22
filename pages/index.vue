@@ -2,14 +2,18 @@
   <div class="container">
     <h1>Welcome!</h1>
     <h2>See open campaigns below</h2>
-    <div class="campaign">
-      <h3>Hardcoded</h3>
-      <img src="https://dreaminfluencers.s3.eu-central-1.amazonaws.com/userContent/K3OkZOAFtkVplTVUkwn2x">
-      <h3></h3>
-      <h4>Campaign Description</h4>
+    <div class="campaigns-slider">
+      <div class="campaigns-slider-wrapper">
+        <CampaignCard v-for="(campaign, index) in campaigns" :key="index" :title="campaign.title"
+          :description="campaign.description" :imgurl="campaign.imageURL" />
+      </div>
+      <div class="campaigns-slider-right" @click="scrollJump('left')">
+        <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
+      </div>
+      <div class="campaigns-slider-left" @click="scrollJump('right')">
+        <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
+      </div>
     </div>
-    <CampaignCard v-for="(campaign, index) in campaigns" :key="index" :title="campaign.title"
-      :description="campaign.description" :imgurl="campaign.imageURL" />
   </div>
 </template>
 
@@ -17,19 +21,18 @@
       :title="campaign.title" :uid="campaign.uid" -->
 
 <style lang="scss" scoped>
-.campaign {
-  padding: 20px;
-  border: solid 1px black;
-  margin: 20px;
-  display: inline-block;
-
-  img {
-    width: 350px;
-  }
-}
-
 .container {
   padding: 50px;
+
+  .campaigns-slider {
+    overflow-x: scroll;
+    position: relative;
+
+    &-wrapper {
+      display: flex;
+    }
+  }
+
 }
 </style>
 
@@ -119,6 +122,11 @@ export default {
       loading: true,
       error: null
     };
+  },
+  methods: {
+    scrollJump(direction) {
+
+    }
   }
   // components: { CampaignCard }
 }
