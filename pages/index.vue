@@ -2,11 +2,14 @@
   <div class="container">
     <h1>Welcome!</h1>
     <h2>See open campaigns below</h2>
-    <div class="campaign">
-      <img src="https://dreaminfluencers.s3.eu-central-1.amazonaws.com/userContent/K3OkZOAFtkVplTVUkwn2x">
-      <h3>Campaign Title</h3>
-      <h4>Campaign Description</h4>
-    </div>
+    <dic v-for="campaign in campaigns" v-bind:key="campaign.uid">
+      <CampaignCard v-bind:todo="campaign" />
+  </div>
+  <div class="campaign">
+    <img src="https://dreaminfluencers.s3.eu-central-1.amazonaws.com/userContent/K3OkZOAFtkVplTVUkwn2x">
+    <h3>Campaign Title</h3>
+    <h4>Campaign Description</h4>
+  </div>
   </div>
 </template>
 
@@ -16,10 +19,12 @@
   border: solid 1px black;
   margin: 20px;
   display: inline-block;
+
   img {
     width: 350px;
   }
 }
+
 .container {
   padding: 50px;
 }
@@ -61,7 +66,7 @@ For this campaign you need to use the hashtags: #ZENZOrganic and #ZENZOrganicPro
   description: "Products from Frederik Bagger (worth up to 3000NOK)",
   title: "Frederik Bagger Norwegian Launch",
   uid: "IUVRvbhdawM-r342awfdwafse"
-},{
+}, {
   imageURL: "https://dreaminfluencers.s3.eu-central-1.amazonaws.com/userContent/CJhc8MG_fl_5Df_nJHGso",
   description: "Vi søger ambassadører der kan skabe opmærksomhed omkrig Foto Factory.",
   title: "Copy of fesfes",
