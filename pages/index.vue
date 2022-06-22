@@ -2,16 +2,19 @@
   <div class="container">
     <h1>Welcome!</h1>
     <h2>See open campaigns below</h2>
-    <dic v-for="campaign in campaigns" v-bind:key="campaign.uid">
-      <CampaignCard v-bind:todo="campaign" />
-  </div>
-  <div class="campaign">
-    <img src="https://dreaminfluencers.s3.eu-central-1.amazonaws.com/userContent/K3OkZOAFtkVplTVUkwn2x">
-    <h3>Campaign Title</h3>
-    <h4>Campaign Description</h4>
-  </div>
+    <div class="campaign">
+      <h3>Hardcoded</h3>
+      <img src="https://dreaminfluencers.s3.eu-central-1.amazonaws.com/userContent/K3OkZOAFtkVplTVUkwn2x">
+      <h3></h3>
+      <h4>Campaign Description</h4>
+    </div>
+    <CampaignCard v-for="(campaign, index) in campaigns" :key="index" :title="campaign.title"
+      :description="campaign.description" :imgurl="campaign.imageURL" />
   </div>
 </template>
+
+<!-- :url="campaign.imageURL" :description="campaign.description"
+      :title="campaign.title" :uid="campaign.uid" -->
 
 <style lang="scss" scoped>
 .campaign {
@@ -29,8 +32,9 @@
   padding: 50px;
 }
 </style>
+
 <script>
-//use the campaigns from the data variable campaigns
+import CampaignCard from '../components/CampaignCard.vue';
 const campaigns = [{
   imageURL: "https://dreaminfluencers.s3.eu-central-1.amazonaws.com/userContent/CJhc8MG_fl_5Df_nJHGso",
   description: "Vi søger ambassadører der kan skabe opmærksomhed omkrig Foto Factory.",
@@ -102,14 +106,20 @@ For this campaign you need to use the hashtags: #ZENZOrganic and #ZENZOrganicPro
   title: "Frederik Bagger Norwegian Launch",
   uid: "IUVRvbhdawM-r342awfdwafse"
 }];
+
+// import CampaignCard from "../components/CampaignCard.vue";
 export default {
-  name: 'IndexPage',
+  name: "IndexPage",
+  // components: {
+  //   CampaignCard
+  // },
   data() {
     return {
       campaigns: campaigns,
       loading: true,
       error: null
-    }
+    };
   }
+  // components: { CampaignCard }
 }
 </script>
