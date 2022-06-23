@@ -29,16 +29,23 @@
     position: relative;
 
     &-wrapper {
-      border: black solid 1px;
       display: flex;
       overflow-x: auto;
       height: fit-content;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     &-right,
     &-left {
       position: absolute;
-      width: 3%;
+      width: 30px;
       z-index: 10;
       height: 100%;
       display: flex;
@@ -53,7 +60,7 @@
       }
 
       img {
-        width: 70%;
+        width: 80%;
       }
     }
 
@@ -168,7 +175,13 @@ export default {
   },
   methods: {
     scrollJump(direction) {
-
+      console.log(direction)
+      const wrapper = this.$el.querySelector('.campaigns-slider-wrapper');
+      const wrapperWidth = wrapper.getBoundingClientRect().width;
+      wrapper.scrollBy({
+        left: direction === 'left' ? wrapperWidth : -(wrapperWidth),
+        behavior: 'smooth'
+      })
     }
   }
 }
