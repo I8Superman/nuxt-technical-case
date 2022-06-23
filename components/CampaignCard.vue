@@ -26,9 +26,11 @@ export default {
 .campaign {
   flex: 0 0 300px;
   padding: 20px;
-  border: solid 1px black;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px -5px rgba(0, 0, 0, 0.75);
   margin: 20px;
   display: inline-block;
+  height: fit-content;
 
   &-image {
     width: 100%;
@@ -36,10 +38,6 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  }
-
-  img {
-    width: 350px;
   }
 }
 </style>

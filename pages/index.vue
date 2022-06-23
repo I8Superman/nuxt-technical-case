@@ -7,12 +7,12 @@
         <CampaignCard v-for="(campaign, index) in campaigns" :key="index" :title="campaign.title"
           :description="campaign.description" :imgurl="campaign.imageURL" />
       </div>
-      <div class="campaigns-slider-right" @click="scrollJump('left')">
+      <!-- <div class="campaigns-slider-right" @click="scrollJump('left')">
         <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
       </div>
       <div class="campaigns-slider-left" @click="scrollJump('right')">
         <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -26,13 +26,18 @@
 
   .campaigns-slider {
     overflow-x: scroll;
-    position: relative;
+    /* position: relative; */
 
-    &-wrapper {
-      display: flex;
-    }
   }
 
+  .campaigns-slider-wrapper {
+    border: black solid 1px;
+    display: flex;
+    overflow-x: auto;
+    display: flex;
+    /* flex-direction: row;
+    flex-wrap: nowrap; */
+  }
 }
 </style>
 
