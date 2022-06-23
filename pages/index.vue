@@ -3,10 +3,10 @@
     <h1>Welcome!</h1>
     <h2>See open campaigns below</h2>
     <div class="campaigns-slider">
-      <div v-if="btnVisible.left" class="campaigns-slider-right" @click="scrollJump('left')">
+      <div class="campaigns-slider-right" @click="scrollJump('left')">
         <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
       </div>
-      <div v-if="btnVisible.right" class="campaigns-slider-left" @click="scrollJump('right')">
+      <div class="campaigns-slider-left" @click="scrollJump('right')">
         <img src="../assets/svgs/scroll-arrow.svg" alt="" class="right-arrow">
       </div>
       <div @scroll="checkScrollBtnVisibility" class="campaigns-slider-wrapper">
@@ -53,6 +53,7 @@
       justify-content: center;
       align-items: center;
       transition: all 0.3s;
+      opacity: 1;
 
       &:hover {
         cursor: pointer;
@@ -65,6 +66,8 @@
     }
 
     &-left {
+      opacity: 0;
+
       img {
         transform: rotate(180deg);
       }
@@ -160,23 +163,23 @@ export default {
       error: null,
       btnVisible: {
         left: true,
-        right: true
+        right: false
       }
     };
   },
   computed: {
-    scrollBtnVisibility(btn) {
-      const wrapper = this.$el.querySelector('.campaigns-slider-wrapper');
-      const wrapperWidth = wrapper.getBoundingClientRect().width;
-      const maxScroll = wrapperWidth + wrapper.scrollLeft;
-      if (btn === 'left' && wrapper.scrollLeft > 0) {
-        return true;
-      } else if (btn === 'right' && wrapper.scrollWidth === maxScroll) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    // scrollBtnVisibility(btn) {
+    //   const wrapper = this.$el.querySelector('.campaigns-slider-wrapper');
+    //   const wrapperWidth = wrapper.getBoundingClientRect().width;
+    //   const maxScroll = wrapperWidth + wrapper.scrollLeft;
+    //   if (btn === 'left' && wrapper.scrollLeft > 0) {
+    //     return true;
+    //   } else if (btn === 'right' && wrapper.scrollWidth === maxScroll) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
   },
   methods: {
     // Calculate wrapper width and scroll by that amount
@@ -187,23 +190,23 @@ export default {
         left: direction === 'left' ? wrapperWidth : -(wrapperWidth),
         behavior: 'smooth'
       });
-      console.log(wrapper.scrollWidth, wrapperWidth + wrapper.scrollLeft)
     },
     checkScrollBtnVisibility() {
+      const btnRight = this.$el.querySelector('.campaigns-slider-right');
+      const btnLeft = this.$el.querySelector('.campaigns-slider-left');
       const wrapper = this.$el.querySelector('.campaigns-slider-wrapper');
       const wrapperWidth = wrapper.getBoundingClientRect().width;
       const maxScroll = wrapper.scrollWidth - wrapperWidth;
       if (wrapper.scrollLeft === 0) {
         console.log('left btn should be gone')
-        // btnVisible.right = false;
+        btnLeft.style.opacity = 0;
       } else if (wrapper.scrollLeft >= maxScroll) {
         console.log('right btn should be gone')
-        // btnVisible.left = false;
+        btnRight.style.opacity = 0;
       } else {
         console.log('both btns should be visible')
-
-        // btnVisible.right = true;
-        // btnVisible.left = true;
+        btnLeft.style.opacity = 1;
+        btnRight.style.opacity = 1;
 
       }
     }
