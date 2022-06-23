@@ -3,16 +3,16 @@
     <h1>Welcome!</h1>
     <h2>See open campaigns below</h2>
     <div class="campaigns-slider">
+      <div class="campaigns-slider-right" @click="scrollJump('left')">
+        <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
+      </div>
+      <div class="campaigns-slider-left" @click="scrollJump('right')">
+        <img src="../assets/svgs/scroll-arrow.svg" alt="" class="right-arrow">
+      </div>
       <div class="campaigns-slider-wrapper">
         <CampaignCard v-for="(campaign, index) in campaigns" :key="index" :title="campaign.title"
           :description="campaign.description" :imgurl="campaign.imageURL" />
       </div>
-      <!-- <div class="campaigns-slider-right" @click="scrollJump('left')">
-        <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
-      </div>
-      <div class="campaigns-slider-left" @click="scrollJump('right')">
-        <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
-      </div> -->
     </div>
   </div>
 </template>
@@ -26,23 +26,52 @@
 
   .campaigns-slider {
     overflow-x: scroll;
-    /* position: relative; */
+    position: relative;
 
-  }
+    &-wrapper {
+      border: black solid 1px;
+      display: flex;
+      overflow-x: auto;
+      height: fit-content;
+    }
 
-  .campaigns-slider-wrapper {
-    border: black solid 1px;
-    display: flex;
-    overflow-x: auto;
-    display: flex;
-    /* flex-direction: row;
-    flex-wrap: nowrap; */
+    &-right,
+    &-left {
+      position: absolute;
+      width: 3%;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s;
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      img {
+        width: 70%;
+      }
+    }
+
+    &-left {
+      img {
+        transform: rotate(180deg);
+      }
+
+    }
+
+    &-right {
+      right: 0;
+    }
   }
 }
 </style>
 
 <script>
-import CampaignCard from '../components/CampaignCard.vue';
 const campaigns = [{
   imageURL: "https://dreaminfluencers.s3.eu-central-1.amazonaws.com/userContent/CJhc8MG_fl_5Df_nJHGso",
   description: "Vi søger ambassadører der kan skabe opmærksomhed omkrig Foto Factory.",
@@ -128,11 +157,19 @@ export default {
       error: null
     };
   },
+  computed: {
+    scrollContaierWidth() {
+      // const wapper = 
+      // const wrapperWidth = 
+    },
+    scrollPosistion() {
+
+    }
+  },
   methods: {
     scrollJump(direction) {
 
     }
   }
-  // components: { CampaignCard }
 }
 </script>
