@@ -15,10 +15,6 @@ export default {
     description: String,
     imgurl: String
   },
-  created() {
-    // console.log(this.title)
-    console.log(this.imgurl)
-  }
 }
 </script>
     

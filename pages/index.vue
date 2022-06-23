@@ -3,13 +3,13 @@
     <h1>Welcome!</h1>
     <h2>See open campaigns below</h2>
     <div class="campaigns-slider">
-      <div class="campaigns-slider-right" @click="scrollJump('left')">
+      <div v-if="btnVisible.left" class="campaigns-slider-right" @click="scrollJump('left')">
         <img src="../assets/svgs/scroll-arrow.svg" alt="" class="left-arrow">
       </div>
-      <div class="campaigns-slider-left" @click="scrollJump('right')">
+      <div v-if="btnVisible.right" class="campaigns-slider-left" @click="scrollJump('right')">
         <img src="../assets/svgs/scroll-arrow.svg" alt="" class="right-arrow">
       </div>
-      <div class="campaigns-slider-wrapper">
+      <div @scroll="checkScrollBtnVisibility" class="campaigns-slider-wrapper">
         <CampaignCard v-for="(campaign, index) in campaigns" :key="index" :title="campaign.title"
           :description="campaign.description" :imgurl="campaign.imageURL" />
       </div>
@@ -151,37 +151,61 @@ For this campaign you need to use the hashtags: #ZENZOrganic and #ZENZOrganicPro
   uid: "IUVRvbhdawM-r342awfdwafse"
 }];
 
-// import CampaignCard from "../components/CampaignCard.vue";
 export default {
   name: "IndexPage",
-  // components: {
-  //   CampaignCard
-  // },
   data() {
     return {
       campaigns: campaigns,
       loading: true,
-      error: null
+      error: null,
+      btnVisible: {
+        left: true,
+        right: true
+      }
     };
   },
   computed: {
-    scrollContaierWidth() {
-      // const wapper = 
-      // const wrapperWidth = 
-    },
-    scrollPosistion() {
-
+    scrollBtnVisibility(btn) {
+      const wrapper = this.$el.querySelector('.campaigns-slider-wrapper');
+      const wrapperWidth = wrapper.getBoundingClientRect().width;
+      const maxScroll = wrapperWidth + wrapper.scrollLeft;
+      if (btn === 'left' && wrapper.scrollLeft > 0) {
+        return true;
+      } else if (btn === 'right' && wrapper.scrollWidth === maxScroll) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   methods: {
+    // Calculate wrapper width and scroll by that amount
     scrollJump(direction) {
-      console.log(direction)
       const wrapper = this.$el.querySelector('.campaigns-slider-wrapper');
       const wrapperWidth = wrapper.getBoundingClientRect().width;
       wrapper.scrollBy({
         left: direction === 'left' ? wrapperWidth : -(wrapperWidth),
         behavior: 'smooth'
-      })
+      });
+      console.log(wrapper.scrollWidth, wrapperWidth + wrapper.scrollLeft)
+    },
+    checkScrollBtnVisibility() {
+      const wrapper = this.$el.querySelector('.campaigns-slider-wrapper');
+      const wrapperWidth = wrapper.getBoundingClientRect().width;
+      const maxScroll = wrapper.scrollWidth - wrapperWidth;
+      if (wrapper.scrollLeft === 0) {
+        console.log('left btn should be gone')
+        // btnVisible.right = false;
+      } else if (wrapper.scrollLeft >= maxScroll) {
+        console.log('right btn should be gone')
+        // btnVisible.left = false;
+      } else {
+        console.log('both btns should be visible')
+
+        // btnVisible.right = true;
+        // btnVisible.left = true;
+
+      }
     }
   }
 }
