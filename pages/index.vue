@@ -36,10 +36,6 @@
       &::-webkit-scrollbar {
         display: none;
       }
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
     }
 
     &-right,
@@ -71,7 +67,6 @@
       img {
         transform: rotate(180deg);
       }
-
     }
 
     &-right {
